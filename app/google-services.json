@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "930310175198",
+    "project_id": "wordly---word-puzzle-game",
+    "storage_bucket": "wordly---word-puzzle-game.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:930310175198:android:7e8228d638c6877af8c54f",
+        "android_client_info": {
+          "package_name": "com.bumbumapps.wordlypuzzle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "930310175198-bhs57b0pcg027aapakc6mkl267ckhdrt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBj_WnQftmICMxJLiMLm6lmbTfdTU0EdmQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "930310175198-bhs57b0pcg027aapakc6mkl267ckhdrt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

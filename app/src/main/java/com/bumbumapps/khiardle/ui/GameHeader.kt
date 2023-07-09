@@ -1,5 +1,8 @@
 package com.bumbumapps.khiardle.ui
 
+import android.app.Activity
+import android.content.Context
+import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -25,13 +28,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bumbumapps.khiardle.Loadads
+import com.bumbumapps.khiardle.Loadads.rewardedAd
 import com.bumbumapps.khiardle.backend.models.Languages
 import com.bumbumapps.khiardle.backend.models.Level
 import com.bumbumapps.khiardle.ui.theme.*
+import com.google.android.gms.ads.OnUserEarnedRewardListener
+import com.google.android.gms.ads.rewarded.RewardedAd
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-internal fun ColumnScope.GameHeader(level: Level,onChangeLanguages: () -> Unit,language: Languages,modifier: Modifier = Modifier) {
+internal fun ColumnScope.GameHeader(level: Level,context: Context,onChangeLanguages: () -> Unit,language: Languages,modifier: Modifier = Modifier) {
     var revealing1 by remember(level) { mutableStateOf(false) }
     var revealing2 by remember(level) { mutableStateOf(false) }
     var revealing3 by remember(level) { mutableStateOf(false) }
@@ -39,7 +46,7 @@ internal fun ColumnScope.GameHeader(level: Level,onChangeLanguages: () -> Unit,l
     var revealing5 by remember(level) { mutableStateOf(false) }
 
     GameHeader(modifier) {
-        LevelHeaderContent(level,language,revealing1,revealing2,revealing3,revealing4,revealing5,onChangeLanguages) {x,y,z,a,b->
+        LevelHeaderContent(level,context,language,revealing1,revealing2,revealing3,revealing4,revealing5,onChangeLanguages) {x,y,z,a,b->
             revealing1 = x
             revealing2 =y
             revealing3 =z
@@ -80,6 +87,7 @@ internal fun ColumnScope.GameHeader(
 @Composable
 private fun ColumnScope.LevelHeaderContent(
     level: Level,
+    context: Context,
     language: Languages,
     revealing1: Boolean,
     revealing2: Boolean,
@@ -281,7 +289,15 @@ private fun ColumnScope.LevelHeaderContent(
                                 Text(text = "?",color = Color.White,
                                     fontSize = 26.sp,
                                     textAlign = TextAlign.Center,  modifier = Modifier.clickable {
-                                        onRevealChanged(true,revealing2,revealing3,revealing4,revealing5)
+                                        rewardedAd.let { ad ->
+                                            ad?.show(context as Activity, OnUserEarnedRewardListener { rewardItem ->
+                                                onRevealChanged(true,revealing2,revealing3,revealing4,revealing5)
+                                                Loadads.loadRewardAds(context)
+
+                                            })
+                                        } ?: run {
+                                            Log.d("TAG", "The rewarded ad wasn't ready yet.")
+                                        }
                                     })
                             }
                             else{
@@ -304,7 +320,16 @@ private fun ColumnScope.LevelHeaderContent(
                                 Text(text = "?",color = Color.White,
                                     fontSize = 26.sp,
                                     textAlign = TextAlign.Center,  modifier = Modifier.clickable {
-                                        onRevealChanged(revealing1,true,revealing3,revealing4,revealing5)
+                                        rewardedAd.let { ad ->
+                                            ad?.show(context as Activity, OnUserEarnedRewardListener { rewardItem ->
+                                                onRevealChanged(revealing1,true,revealing3,revealing4,revealing5)
+                                                Loadads.loadRewardAds(context)
+
+                                            })
+                                        } ?: run {
+                                            Log.d("TAG", "The rewarded ad wasn't ready yet.")
+                                        }
+
                                     })
                             }
                             else{
@@ -329,7 +354,15 @@ private fun ColumnScope.LevelHeaderContent(
                                 Text(text = "?",color = Color.White,
                                     fontSize = 26.sp,
                                     textAlign = TextAlign.Center,  modifier = Modifier.clickable {
-                                        onRevealChanged(revealing1,revealing2,true,revealing4,revealing5)
+                                        rewardedAd?.let { ad ->
+                                            ad.show(context as Activity, OnUserEarnedRewardListener { rewardItem ->
+                                                onRevealChanged(revealing1,revealing2,true,revealing4,revealing5)
+                                                Loadads.loadRewardAds(context)
+
+                                            })
+                                        } ?: run {
+                                            Log.d("TAG", "The rewarded ad wasn't ready yet.")
+                                        }
                                     })
                             }
                             else{
@@ -352,7 +385,15 @@ private fun ColumnScope.LevelHeaderContent(
                                 Text(text = "?",color = Color.White,
                                     fontSize = 26.sp,
                                     textAlign = TextAlign.Center,  modifier = Modifier.clickable {
-                                        onRevealChanged(revealing1,revealing2,revealing3,true,revealing5)
+                                        rewardedAd?.let { ad ->
+                                            ad.show(context as Activity, OnUserEarnedRewardListener { rewardItem ->
+                                                onRevealChanged(revealing1,revealing2,revealing3,true,revealing5)
+                                                Loadads.loadRewardAds(context)
+                                            })
+                                        } ?: run {
+                                            Log.d("TAG", "The rewarded ad wasn't ready yet.")
+                                        }
+
                                     })
                             }
                             else{
@@ -375,7 +416,15 @@ private fun ColumnScope.LevelHeaderContent(
                                 Text(text = "?",color = Color.White,
                                     fontSize = 26.sp,
                                     textAlign = TextAlign.Center,  modifier = Modifier.clickable {
-                                        onRevealChanged(revealing1,revealing2,revealing3,revealing4,true)
+                                        rewardedAd?.let { ad ->
+                                            ad.show(context as Activity, OnUserEarnedRewardListener { rewardItem ->
+                                                onRevealChanged(revealing1,revealing2,revealing3,revealing4,true)
+                                                Loadads.loadRewardAds(context)
+
+                                            })
+                                        } ?: run {
+                                            Log.d("TAG", "The rewarded ad wasn't ready yet.")
+                                        }
                                     })
                             }
                             else{

@@ -1,27 +1,37 @@
 package com.bumbumapps.khiardle.ui
 
+import android.app.Activity
+import android.content.Context
+import android.view.ViewGroup
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import com.bumbumapps.khiardle.Globals
+import com.bumbumapps.khiardle.Loadads
+import com.bumbumapps.khiardle.Loadads.mInterstitialAd
+import com.bumbumapps.khiardle.R
+import com.bumbumapps.khiardle.Timers
 import com.bumbumapps.khiardle.backend.models.Game
 import com.bumbumapps.khiardle.backend.models.Languages
 import com.bumbumapps.khiardle.backend.models.Level
 import com.bumbumapps.khiardle.backend.usecase.GetWordStatus
 import com.bumbumapps.khiardle.backend.viewmodel.GameViewModel
 import com.bumbumapps.khiardle.backend.viewmodel.LevelsViewModel
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.rewarded.RewardedAd
 
 @Composable
 internal fun WordScreen(
     level: Level,
+    context:Context,
     getWordStatus: GetWordStatus,
     language: Languages,
     levelsViewModel: LevelsViewModel,
@@ -35,14 +45,26 @@ internal fun WordScreen(
     }
 
     val state by viewModel.state().collectAsState()
-    GameScreen(level, state,language, onKey = {
+    GameScreen(level,context,state,language, onKey = {
         viewModel.characterEntered(it)
     },
         onBackspace = {
             viewModel.backspacePressed()
         },
         onSubmit = {
-            viewModel.submit()
+            if (Globals.TIMER_FINISHED){
+                mInterstitialAd?.show(context as Activity)
+                mInterstitialAd?.fullScreenContentCallback=object: FullScreenContentCallback(){
+                    override fun onAdDismissedFullScreenContent() {
+                        Globals.TIMER_FINISHED=false
+                        Timers.timer().start()
+                        viewModel.submit()
+                        Loadads.loadGoogleInterstitialAd(context)
+                    }
+                }
+            }else{
+                viewModel.submit()
+            }
         }, shownError = {
             viewModel.shownNotExists()
         },
@@ -60,6 +82,7 @@ internal fun WordScreen(
 @Composable
 fun GameScreen(
     level: Level,
+    context: Context,
     state: GameViewModel.State,
     language: Languages,
     onKey: (char: Char) -> Unit,
@@ -71,12 +94,12 @@ fun GameScreen(
     shownLost: () -> Unit,
 ) {
 
-    Box(Modifier
-        .fillMaxSize()
-        .padding(horizontal = 8.dp, vertical = 16.dp)) {
+    Box(
+        Modifier
+            .fillMaxSize()) {
 
-        Column(Modifier.padding(bottom = 8.dp)) {
-            GameHeader(level, onChangeLanguage,language )
+        Column {
+            GameHeader(level,context,onChangeLanguage,language )
 
             GameGrid(state,
                 modifier = Modifier
@@ -92,6 +115,23 @@ fun GameScreen(
                 onBackspace = onBackspace,
                 onSubmit = onSubmit,
             )
+            Spacer(modifier = Modifier.size(16.dp))
+
+            Column(verticalArrangement = Arrangement.Bottom) {
+                AndroidView(
+                    factory = { context ->
+                        AdView(context).apply {
+                            adUnitId = context.getString(R.string.banner_id)
+                            setAdSize(AdSize.FULL_BANNER)
+                            layoutParams = ViewGroup.LayoutParams(
+                                ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT
+                            )
+                            loadAd(AdRequest.Builder().build())
+                        }
+                    }
+                )
+            }
         }
         ErrorScreen(state, shownError)
         WonScreen(state, shownWon)

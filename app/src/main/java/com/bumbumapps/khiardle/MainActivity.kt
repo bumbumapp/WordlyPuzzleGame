@@ -2,6 +2,7 @@ package com.bumbumapps.khiardle
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
@@ -28,6 +29,7 @@ import com.bumbumapps.khiardle.ui.GameHeader
 import com.bumbumapps.khiardle.ui.WordScreen
 import com.bumbumapps.khiardle.ui.theme.KhiardleTheme
 
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +40,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+
+                    Loadads.loadGoogleInterstitialAd(this)
+                    Loadads.loadRewardAds(this)
                     val language= remember {
                         Languages(this)
                     }
@@ -68,7 +73,7 @@ class MainActivity : ComponentActivity() {
 
                     val level = levelViewModel.state().collectAsState().value.currentLevel
                     if (level != null) {
-                        WordScreen(level,getWordStatus,language,levelViewModel) {
+                        WordScreen(level,this,getWordStatus,language,levelViewModel) {
                             levelViewModel.levelPassed(false)
                         }
                     } else {
