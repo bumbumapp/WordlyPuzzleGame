@@ -1,7 +1,4 @@
 <resources>
     <string name="app_name">Wordly - Word puzzle game</string>
-    <string name="banner_app_id">ca-app-pub-8444865753152507~1436168031</string>
-    <string name="interstial_id">ca-app-pub-8444865753152507/9390679673</string>
-    <string name="banner_id">ca-app-pub-8444865753152507/7810004697</string>
-    <string name="rewarded_id">ca-app-pub-8444865753152507/3725507187</string>
+
 </resources>
