@@ -29,11 +29,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bumbumapps.khiardle.Loadads
-import com.bumbumapps.khiardle.Loadads.rewardedAd
 import com.bumbumapps.khiardle.backend.models.Languages
 import com.bumbumapps.khiardle.backend.models.Level
 import com.bumbumapps.khiardle.ui.theme.*
-import com.google.android.gms.ads.OnUserEarnedRewardListener
 import com.google.android.gms.ads.rewarded.RewardedAd
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -289,15 +287,7 @@ private fun ColumnScope.LevelHeaderContent(
                                 Text(text = "?",color = Color.White,
                                     fontSize = 26.sp,
                                     textAlign = TextAlign.Center,  modifier = Modifier.clickable {
-                                        rewardedAd.let { ad ->
-                                            ad?.show(context as Activity, OnUserEarnedRewardListener { rewardItem ->
-                                                onRevealChanged(true,revealing2,revealing3,revealing4,revealing5)
-                                                Loadads.loadRewardAds(context)
-
-                                            })
-                                        } ?: run {
-                                            Log.d("TAG", "The rewarded ad wasn't ready yet.")
-                                        }
+                                        Loadads.showRewarded(context) { onRevealChanged(true,revealing2,revealing3,revealing4,revealing5) }
                                     })
                             }
                             else{
@@ -320,15 +310,7 @@ private fun ColumnScope.LevelHeaderContent(
                                 Text(text = "?",color = Color.White,
                                     fontSize = 26.sp,
                                     textAlign = TextAlign.Center,  modifier = Modifier.clickable {
-                                        rewardedAd.let { ad ->
-                                            ad?.show(context as Activity, OnUserEarnedRewardListener { rewardItem ->
-                                                onRevealChanged(revealing1,true,revealing3,revealing4,revealing5)
-                                                Loadads.loadRewardAds(context)
-
-                                            })
-                                        } ?: run {
-                                            Log.d("TAG", "The rewarded ad wasn't ready yet.")
-                                        }
+                                        Loadads.showRewarded(context) { onRevealChanged(revealing1,true,revealing3,revealing4,revealing5) }
 
                                     })
                             }
@@ -354,15 +336,7 @@ private fun ColumnScope.LevelHeaderContent(
                                 Text(text = "?",color = Color.White,
                                     fontSize = 26.sp,
                                     textAlign = TextAlign.Center,  modifier = Modifier.clickable {
-                                        rewardedAd?.let { ad ->
-                                            ad.show(context as Activity, OnUserEarnedRewardListener { rewardItem ->
-                                                onRevealChanged(revealing1,revealing2,true,revealing4,revealing5)
-                                                Loadads.loadRewardAds(context)
-
-                                            })
-                                        } ?: run {
-                                            Log.d("TAG", "The rewarded ad wasn't ready yet.")
-                                        }
+                                        Loadads.showRewarded(context) { onRevealChanged(revealing1,revealing2,true,revealing4,revealing5) }
                                     })
                             }
                             else{
@@ -385,14 +359,7 @@ private fun ColumnScope.LevelHeaderContent(
                                 Text(text = "?",color = Color.White,
                                     fontSize = 26.sp,
                                     textAlign = TextAlign.Center,  modifier = Modifier.clickable {
-                                        rewardedAd?.let { ad ->
-                                            ad.show(context as Activity, OnUserEarnedRewardListener { rewardItem ->
-                                                onRevealChanged(revealing1,revealing2,revealing3,true,revealing5)
-                                                Loadads.loadRewardAds(context)
-                                            })
-                                        } ?: run {
-                                            Log.d("TAG", "The rewarded ad wasn't ready yet.")
-                                        }
+                                        Loadads.showRewarded(context) { onRevealChanged(revealing1,revealing2,revealing3,true,revealing5) }
 
                                     })
                             }
@@ -416,15 +383,7 @@ private fun ColumnScope.LevelHeaderContent(
                                 Text(text = "?",color = Color.White,
                                     fontSize = 26.sp,
                                     textAlign = TextAlign.Center,  modifier = Modifier.clickable {
-                                        rewardedAd?.let { ad ->
-                                            ad.show(context as Activity, OnUserEarnedRewardListener { rewardItem ->
-                                                onRevealChanged(revealing1,revealing2,revealing3,revealing4,true)
-                                                Loadads.loadRewardAds(context)
-
-                                            })
-                                        } ?: run {
-                                            Log.d("TAG", "The rewarded ad wasn't ready yet.")
-                                        }
+                                        Loadads.showRewarded(context) { onRevealChanged(revealing1,revealing2,revealing3,revealing4,true) }
                                     })
                             }
                             else{

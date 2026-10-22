@@ -33,6 +33,12 @@ import com.bumbumapps.khiardle.ui.theme.KhiardleTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // UMP consent first; ads are loaded once (not on every recomposition) when allowed.
+        AdsConsent.gather(this) {
+            InterstitialHelper.preload(this)
+            Loadads.loadRewardAds(this)
+            Loadads.adsReady.value = true
+        }
         setContent {
             KhiardleTheme {
                 // A surface container using the 'background' color from the theme
@@ -41,8 +47,6 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
 
-                    Loadads.loadGoogleInterstitialAd(this)
-                    Loadads.loadRewardAds(this)
                     val language= remember {
                         Languages(this)
                     }
