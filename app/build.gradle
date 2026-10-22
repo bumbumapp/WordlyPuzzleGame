@@ -1,19 +1,24 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.compose'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
 }
 
+def compose_version = '1.9.4'
+
 android {
-    compileSdk 34
+    namespace 'com.bumbumapps.khiardle'
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.bumbumapps.wordlypuzzle"
-        minSdk 21
-        targetSdk 34
-        versionCode 5
-        versionName "1.0.4"
+        minSdk 24
+        targetSdk 36
+        // Play: versionCode 5 is live.
+        versionCode 6
+        versionName "1.1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -22,57 +27,65 @@ android {
     }
 
     buildTypes {
+        debug {
+            // Google test ads in debug builds.
+            manifestPlaceholders = [admobAppId: "ca-app-pub-3940256099942544~3347511713"]
+            resValue "string", "admob_interstitial_id", "ca-app-pub-3940256099942544/1033173712"
+            resValue "string", "admob_banner_id", "ca-app-pub-3940256099942544/9214589741"
+            resValue "string", "admob_rewarded_id", "ca-app-pub-3940256099942544/5224354917"
+        }
         release {
+            manifestPlaceholders = [admobAppId: "ca-app-pub-8444865753152507~1436168031"]
+            resValue "string", "admob_interstitial_id", "ca-app-pub-8444865753152507/9390679673"
+            resValue "string", "admob_banner_id", "ca-app-pub-8444865753152507/7810004697"
+            resValue "string", "admob_rewarded_id", "ca-app-pub-8444865753152507/3725507187"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     buildFeatures {
         compose true
+        buildConfig true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion compose_version
-    }
-    packagingOptions {
+    packaging {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
-    lintOptions {
+    lint {
         checkReleaseBuilds false
-        //If you want to continue even if errors found use following line
         abortOnError false
     }
 }
 
-dependencies {
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+    }
+}
 
-    implementation 'androidx.core:core-ktx:1.6.0'
+dependencies {
+    implementation 'androidx.core:core-ktx:1.17.0'
     implementation "androidx.compose.ui:ui:$compose_version"
-    implementation 'androidx.compose.material3:material3:1.0.0-alpha01'
+    implementation 'androidx.compose.material3:material3:1.4.0'
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.3.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.9.4'
+    implementation 'androidx.activity:activity-compose:1.11.0'
     implementation "androidx.compose.material:material:$compose_version"
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    testImplementation "io.mockk:mockk:1.12.2"
+    testImplementation "io.mockk:mockk:1.14.6"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 
-    implementation 'com.google.android.gms:play-services-ads:21.5.0'
-    implementation platform('com.google.firebase:firebase-bom:31.2.2')
-
-    // Add the dependencies for the Crashlytics and Analytics libraries
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.android.gms:play-services-ads:25.5.0'
+    implementation 'com.google.android.ump:user-messaging-platform:4.0.0'
+    implementation platform('com.google.firebase:firebase-bom:34.4.0')
+    implementation 'com.google.firebase:firebase-crashlytics'
 }
