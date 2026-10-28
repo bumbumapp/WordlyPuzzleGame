@@ -45,15 +45,16 @@ internal fun WordScreen(
             viewModel.backspacePressed()
         },
         onSubmit = {
-            // Interstitial at most once per 60 s; the guess is always submitted (it used to be
-            // swallowed when the timer had expired but no ad was loaded).
-            InterstitialHelper.showIfReady(context.findActivity()) { viewModel.submit() }
+            viewModel.submit()
         }, shownError = {
             viewModel.shownNotExists()
         },
-        shownWon = levelCompleted,
+        // Interstitials only when a level ends (won or lost), never between guesses.
+        shownWon = {
+            InterstitialHelper.showIfReady(context.findActivity()) { levelCompleted() }
+        },
         shownLost = {
-            viewModel.shownLost()
+            InterstitialHelper.showIfReady(context.findActivity()) { viewModel.shownLost() }
         },
         onChangeLanguage = {
            levelsViewModel.levelPassed(true)
