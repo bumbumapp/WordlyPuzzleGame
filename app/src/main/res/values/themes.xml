@@ -3,8 +3,10 @@
 
     <style name="Theme.Khiardle" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:statusBarColor">#FF121317</item>
+        <item name="android:navigationBarColor">#FF121317</item>
+        <item name="android:windowBackground">@color/graphite_ground</item>
     </style>
 
 

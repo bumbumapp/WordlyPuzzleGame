@@ -182,7 +182,7 @@ private fun ColumnScope.LevelHeaderContent(
             Box(
                 modifier = Modifier
                     .size(28.dp)
-                    .background(Color.Black)
+                    .background(Color(0xFF1E2026))
                     .border(width = 1.dp, color = Color.White, shape = RoundedCornerShape(20.dp)),
                 contentAlignment = Alignment.Center
 

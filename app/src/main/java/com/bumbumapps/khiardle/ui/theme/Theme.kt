@@ -18,7 +18,7 @@ private val DarkColorScheme = darkColorScheme(
     tertiary = Color(0xFF0288D1),
     onBackground = Color(0xFFD1D1D1),
     onPrimary = Color(0xFFFFFFFF),
-    background = Color(0xFF000000)
+    background = Color(0xFF121317)
     )
 
 private val LightColorScheme = lightColorScheme(
@@ -27,7 +27,7 @@ private val LightColorScheme = lightColorScheme(
     tertiary = Color(0xFF0288D1),
     onBackground = Color(0xFFD1D1D1),
     onPrimary = Color(0xFFFFFFFF),
-    background = Color(0xFF000000)
+    background = Color(0xFF121317)
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -40,12 +40,12 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
-val ColorScheme.correctBackground @Composable get() = Color(0xFF4CAF50)
-val ColorScheme.wrongPositionBackground @Composable get() = Color(0xFF2196F3)
-val ColorScheme.incorrectBackground @Composable get() = Color(0xFF5B5B5B)
+val ColorScheme.correctBackground @Composable get() = Color(0xFF2FB36B)
+val ColorScheme.wrongPositionBackground @Composable get() = Color(0xFF3D8BFF)
+val ColorScheme.incorrectBackground @Composable get() = Color(0xFF3A3E47)
 val ColorScheme.enteringBackground @Composable get() = MaterialTheme.colorScheme.background
-val ColorScheme.keyboard @Composable get() = Color(0xFF221f35)
-val ColorScheme.keyboardDisabled @Composable get() = Color(0xFFB81D12)
+val ColorScheme.keyboard @Composable get() = Color(0xFF2A2D35)
+val ColorScheme.keyboardDisabled @Composable get() = Color(0xFF17181C)
 val ColorScheme.onKeyboard @Composable get() = Color(0xFFE7E7E7)
 
 @Composable
@@ -63,8 +63,9 @@ fun KhiardleTheme(
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
-            (view.context as Activity).window.statusBarColor = colorScheme.primary.toArgb()
-            ViewCompat.getWindowInsetsController(view)?.isAppearanceLightStatusBars = darkTheme
+            // Both schemes use the graphite background, so the bar matches it and keeps light icons.
+            (view.context as Activity).window.statusBarColor = colorScheme.background.toArgb()
+            ViewCompat.getWindowInsetsController(view)?.isAppearanceLightStatusBars = false
         }
     }
 
