@@ -87,7 +87,7 @@ internal fun GameKeyboard(
             Box(modifier
                 .align(CenterHorizontally)
                 .height(40.dp)
-                .clip(RoundedCornerShape(2.dp))
+                .clip(RoundedCornerShape(8.dp))
                 .background(color= Pink)
                 .width(80.dp)
                 .clickable(onClick = onSubmit), Alignment.Center) {
@@ -134,7 +134,7 @@ private fun KeyboardKey(
     val context = LocalContext.current
     Box(modifier
         .height(40.dp)
-        .clip(RoundedCornerShape(6.dp))
+        .clip(RoundedCornerShape(10.dp))
         .background(color)
         .clickable(onClick = {
             context.vibrate()
@@ -167,7 +167,7 @@ private fun KeyboardKey(
     })
     Box(modifier
         .height(40.dp)
-        .clip(RoundedCornerShape(2.dp))
+        .clip(RoundedCornerShape(8.dp))
         .background(color)
         .clickable(onClick = onClick), Alignment.Center) {
         content()

@@ -43,7 +43,7 @@ internal fun BoxScope.GameOverScreen(
             }
             .padding(16.dp)
             .wrapContentHeight()
-            .clip(RoundedCornerShape(5.dp))
+            .clip(RoundedCornerShape(12.dp))
             .background(MaterialTheme.colorScheme.error),
             Alignment.Center) {
             Text(text = "You lost. Tap to retry.",

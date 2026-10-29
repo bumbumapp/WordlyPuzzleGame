@@ -35,7 +35,7 @@ internal fun BoxScope.ErrorScreen(
         .align(Alignment.BottomCenter)) {
         Box(Modifier
             .align(Alignment.BottomCenter)
-            .clip(RoundedCornerShape(5.dp))
+            .clip(RoundedCornerShape(12.dp))
             .background(MaterialTheme.colorScheme.error)
             .padding(16.dp)) {
             Text(text = "The word does not exist!",

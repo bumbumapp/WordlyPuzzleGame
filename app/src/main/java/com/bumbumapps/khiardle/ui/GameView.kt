@@ -132,7 +132,7 @@ internal fun BasicCharacterBox(
     Box(
         modifier
             .aspectRatio(1f)
-            .clip(RoundedCornerShape(2.dp))
+            .clip(RoundedCornerShape(8.dp))
             .then(borderModifier)
             .background(animateColorAsState(targetValue = color).value),
         contentAlignment = Alignment.Center) {

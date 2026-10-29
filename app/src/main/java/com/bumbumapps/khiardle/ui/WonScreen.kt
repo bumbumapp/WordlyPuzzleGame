@@ -43,7 +43,7 @@ internal fun WonScreen(
             }
             .padding(16.dp)
             .wrapContentHeight()
-            .clip(RoundedCornerShape(5.dp))
+            .clip(RoundedCornerShape(12.dp))
             .background(color= Purple80),
             Alignment.Center) {
             Text(text = "LEVEL PASSED!",

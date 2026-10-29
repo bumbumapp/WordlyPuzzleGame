@@ -72,7 +72,7 @@ internal fun ColumnScope.GameHeader(
             style = MaterialTheme.typography.headlineLarge,
             fontWeight = FontWeight.Black,
             color= Yellow,
-            fontFamily = FontFamily.Serif,
+            fontFamily = com.bumbumapps.khiardle.ui.theme.Jakarta,
             modifier = Modifier.align(
                 Alignment.CenterHorizontally))
 
@@ -115,7 +115,7 @@ private fun ColumnScope.LevelHeaderContent(
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Black,
             color = Yellow,
-            fontFamily = FontFamily.Serif,
+            fontFamily = com.bumbumapps.khiardle.ui.theme.Jakarta,
             modifier = Modifier
                 .weight(0.4f)
                 .padding(start = 10.dp, end = 10.dp)
@@ -276,7 +276,7 @@ private fun ColumnScope.LevelHeaderContent(
                         Box(
                             modifier = Modifier
                                 .weight(1f)
-                                .clip(RoundedCornerShape(3.dp))
+                                .clip(RoundedCornerShape(8.dp))
                                 .aspectRatio(1f)
                                 .background(Color.Transparent)
                                 .border(2.dp, Color.White),
@@ -300,7 +300,7 @@ private fun ColumnScope.LevelHeaderContent(
                             modifier = Modifier
                                 .weight(1f)
                                 .aspectRatio(1f)
-                                .clip(RoundedCornerShape(3.dp))
+                                .clip(RoundedCornerShape(8.dp))
                                 .background(Color.Transparent)
                                 .border(2.dp, Color.White),
                             contentAlignment = Alignment.Center
@@ -326,7 +326,7 @@ private fun ColumnScope.LevelHeaderContent(
                             modifier = Modifier
                                 .weight(1f)
                                 .aspectRatio(1f)
-                                .clip(RoundedCornerShape(3.dp))
+                                .clip(RoundedCornerShape(8.dp))
                                 .background(Color.Transparent)
                                 .border(2.dp, Color.White),
                             contentAlignment = Alignment.Center
@@ -348,7 +348,7 @@ private fun ColumnScope.LevelHeaderContent(
                         Box(
                             modifier = Modifier
                                 .weight(1f)
-                                .clip(RoundedCornerShape(3.dp))
+                                .clip(RoundedCornerShape(8.dp))
                                 .aspectRatio(1f)
                                 .background(Color.Transparent)
                                 .border(2.dp, Color.White),
@@ -373,7 +373,7 @@ private fun ColumnScope.LevelHeaderContent(
                             modifier = Modifier
                                 .weight(1f)
                                 .aspectRatio(1f)
-                                .clip(RoundedCornerShape(3.dp))
+                                .clip(RoundedCornerShape(8.dp))
                                 .background(Color.Transparent)
                                 .border(2.dp, Color.White),
                             contentAlignment = Alignment.Center

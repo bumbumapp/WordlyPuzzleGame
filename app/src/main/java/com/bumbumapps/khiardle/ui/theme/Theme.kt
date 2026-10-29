@@ -18,7 +18,7 @@ private val DarkColorScheme = darkColorScheme(
     tertiary = Color(0xFF0288D1),
     onBackground = Color(0xFFD1D1D1),
     onPrimary = Color(0xFFFFFFFF),
-    background = Color(0xFF121317)
+    background = Color(0xFF0D0F16)
     )
 
 private val LightColorScheme = lightColorScheme(
@@ -27,7 +27,7 @@ private val LightColorScheme = lightColorScheme(
     tertiary = Color(0xFF0288D1),
     onBackground = Color(0xFFD1D1D1),
     onPrimary = Color(0xFFFFFFFF),
-    background = Color(0xFF121317)
+    background = Color(0xFF0D0F16)
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -42,10 +42,10 @@ private val LightColorScheme = lightColorScheme(
 
 val ColorScheme.correctBackground @Composable get() = Color(0xFF2FB36B)
 val ColorScheme.wrongPositionBackground @Composable get() = Color(0xFF3D8BFF)
-val ColorScheme.incorrectBackground @Composable get() = Color(0xFF3A3E47)
+val ColorScheme.incorrectBackground @Composable get() = Color(0xFF2A2F3D)
 val ColorScheme.enteringBackground @Composable get() = MaterialTheme.colorScheme.background
-val ColorScheme.keyboard @Composable get() = Color(0xFF2A2D35)
-val ColorScheme.keyboardDisabled @Composable get() = Color(0xFF17181C)
+val ColorScheme.keyboard @Composable get() = Color(0xFF262B3A)
+val ColorScheme.keyboardDisabled @Composable get() = Color(0xFF171A23)
 val ColorScheme.onKeyboard @Composable get() = Color(0xFFE7E7E7)
 
 @Composable
