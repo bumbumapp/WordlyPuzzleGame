@@ -17,9 +17,9 @@ def adId = { String key, String fallback -> ((project.findProperty(key) ?: adsPr
 def HMS_TEST_BANNER_ID = 'testw6vs28auh3'
 def HMS_TEST_INTERSTITIAL_ID = 'testb4znbuh3n2'
 def HMS_TEST_REWARDED_ID = 'testx9dtjwj8hp'
-def HMS_BANNER_ID = adId('HMS_BANNER_ID', HMS_TEST_BANNER_ID)
-def HMS_INTERSTITIAL_ID = adId('HMS_INTERSTITIAL_ID', HMS_TEST_INTERSTITIAL_ID)
-def HMS_REWARDED_ID = adId('HMS_REWARDED_ID', HMS_TEST_REWARDED_ID)
+def HMS_BANNER_ID = adId('HMS_BANNER_ID', 'w4j0z1blbj')
+def HMS_INTERSTITIAL_ID = adId('HMS_INTERSTITIAL_ID', 'i1u8yn7anx')
+def HMS_REWARDED_ID = adId('HMS_REWARDED_ID', 'g1g0xxz89o')
 
 android {
     namespace 'com.bumbumapps.khiardle'
