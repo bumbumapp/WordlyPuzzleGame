@@ -1,6 +1,5 @@
 package com.bumbumapps.khiardle
 
-import android.app.Activity
 import android.content.Context
 import android.widget.Toast
 import com.google.android.gms.ads.AdError
@@ -54,13 +53,4 @@ object Loadads {
         }
         ad.show(activity) { onReward() }
     }
-}
-
-fun Context.findActivity(): Activity? {
-    var c: Context? = this
-    while (c is android.content.ContextWrapper) {
-        if (c is Activity) return c
-        c = c.baseContext
-    }
-    return null
 }

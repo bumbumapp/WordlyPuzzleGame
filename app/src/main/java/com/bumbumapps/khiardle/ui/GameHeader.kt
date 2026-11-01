@@ -32,7 +32,6 @@ import com.bumbumapps.khiardle.Loadads
 import com.bumbumapps.khiardle.backend.models.Languages
 import com.bumbumapps.khiardle.backend.models.Level
 import com.bumbumapps.khiardle.ui.theme.*
-import com.google.android.gms.ads.rewarded.RewardedAd
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
