@@ -29,9 +29,9 @@ android {
         applicationId "com.bumbumapps.wordlypuzzle"
         minSdk 24
         targetSdk 36
-        // Play: versionCode 8 is live.
-        versionCode 9
-        versionName "1.3.1"
+        // Play/AppGallery: versionCode 9 (1.3.1) submitted 2026-11-01.
+        versionCode 10
+        versionName "1.3.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

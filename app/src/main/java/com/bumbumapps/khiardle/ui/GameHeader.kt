@@ -29,6 +29,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bumbumapps.khiardle.Loadads
+import com.bumbumapps.khiardle.R
+import androidx.compose.ui.res.stringResource
 import com.bumbumapps.khiardle.backend.models.Languages
 import com.bumbumapps.khiardle.backend.models.Level
 import com.bumbumapps.khiardle.ui.theme.*
@@ -98,6 +100,14 @@ private fun ColumnScope.LevelHeaderContent(
     val languages = listOf("English","German","Dutch","French","Italian","Turkish","Portuguese","Catalan","Spanish")
     var expanded by remember {
         mutableStateOf(false)
+    }
+    // AdMob "user choice": the player must opt in before a rewarded ad is shown.
+    var pendingReveal by remember { mutableStateOf<(() -> Unit)?>(null) }
+    pendingReveal?.let { reveal ->
+        RewardedAdPrompt(
+            onWatch = { pendingReveal = null; reveal() },
+            onDismiss = { pendingReveal = null },
+        )
     }
 
     Row(
@@ -286,7 +296,7 @@ private fun ColumnScope.LevelHeaderContent(
                                 Text(text = "?",color = Color.White,
                                     fontSize = 26.sp,
                                     textAlign = TextAlign.Center,  modifier = Modifier.clickable {
-                                        Loadads.showRewarded(context) { onRevealChanged(true,revealing2,revealing3,revealing4,revealing5) }
+                                        pendingReveal = { Loadads.showRewarded(context) { onRevealChanged(true,revealing2,revealing3,revealing4,revealing5) } }
                                     })
                             }
                             else{
@@ -309,7 +319,7 @@ private fun ColumnScope.LevelHeaderContent(
                                 Text(text = "?",color = Color.White,
                                     fontSize = 26.sp,
                                     textAlign = TextAlign.Center,  modifier = Modifier.clickable {
-                                        Loadads.showRewarded(context) { onRevealChanged(revealing1,true,revealing3,revealing4,revealing5) }
+                                        pendingReveal = { Loadads.showRewarded(context) { onRevealChanged(revealing1,true,revealing3,revealing4,revealing5) } }
 
                                     })
                             }
@@ -335,7 +345,7 @@ private fun ColumnScope.LevelHeaderContent(
                                 Text(text = "?",color = Color.White,
                                     fontSize = 26.sp,
                                     textAlign = TextAlign.Center,  modifier = Modifier.clickable {
-                                        Loadads.showRewarded(context) { onRevealChanged(revealing1,revealing2,true,revealing4,revealing5) }
+                                        pendingReveal = { Loadads.showRewarded(context) { onRevealChanged(revealing1,revealing2,true,revealing4,revealing5) } }
                                     })
                             }
                             else{
@@ -358,7 +368,7 @@ private fun ColumnScope.LevelHeaderContent(
                                 Text(text = "?",color = Color.White,
                                     fontSize = 26.sp,
                                     textAlign = TextAlign.Center,  modifier = Modifier.clickable {
-                                        Loadads.showRewarded(context) { onRevealChanged(revealing1,revealing2,revealing3,true,revealing5) }
+                                        pendingReveal = { Loadads.showRewarded(context) { onRevealChanged(revealing1,revealing2,revealing3,true,revealing5) } }
 
                                     })
                             }
@@ -382,7 +392,7 @@ private fun ColumnScope.LevelHeaderContent(
                                 Text(text = "?",color = Color.White,
                                     fontSize = 26.sp,
                                     textAlign = TextAlign.Center,  modifier = Modifier.clickable {
-                                        Loadads.showRewarded(context) { onRevealChanged(revealing1,revealing2,revealing3,revealing4,true) }
+                                        pendingReveal = { Loadads.showRewarded(context) { onRevealChanged(revealing1,revealing2,revealing3,revealing4,true) } }
                                     })
                             }
                             else{
@@ -400,3 +410,16 @@ private fun ColumnScope.LevelHeaderContent(
     }
 }
 
+
+
+/** Asks before a rewarded ad: what the ad is for, with a clear way to decline. */
+@Composable
+internal fun RewardedAdPrompt(onWatch: () -> Unit, onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.reveal_letter_title)) },
+        text = { Text(stringResource(R.string.reveal_letter_message)) },
+        confirmButton = { TextButton(onClick = onWatch) { Text(stringResource(R.string.reveal_letter_watch)) } },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.reveal_letter_cancel)) } },
+    )
+}

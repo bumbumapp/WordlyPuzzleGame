@@ -2,4 +2,8 @@
     <string name="app_name">Wordly - Word puzzle game</string>
 
     <string name="ad_not_ready">The ad is not ready yet, please try again in a moment.</string>
+    <string name="reveal_letter_title">Reveal this letter?</string>
+    <string name="reveal_letter_message">Watch a short video ad to reveal this letter.</string>
+    <string name="reveal_letter_watch">Watch ad</string>
+    <string name="reveal_letter_cancel">No thanks</string>
 </resources>
